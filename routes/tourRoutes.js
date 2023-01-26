@@ -11,5 +11,6 @@ router
     authController.restrict,
     tourController.createTour
   );
+router.route("/:id").get(tourController.getOne);
 
 module.exports = router;

@@ -15,7 +15,14 @@ router
     userController.uploadUserPhoto,
     userController.updateMe
   );
-router.use(authController.protect, authController.restrict);
+router
+  .route("/:tourId/add")
+  .patch(authController.protect, userController.addToUserWishlist);
+router
+  .route("/:tourId/remove")
+  .patch(authController.protect, userController.removeFromUserWishlist);
+
+// router.use(authController.protect, authController.restrict);
 router
   .route("/")
   .get(userController.getUsers)

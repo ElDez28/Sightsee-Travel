@@ -3,8 +3,42 @@ const factory = require("./handlerFactory");
 const multer = require("multer");
 const catchAsync = require("../util/catchAsync");
 const { v1: uuid } = require("uuid");
+const AppError = require("../util/AppError");
 exports.createUser = factory.createOne(User);
 exports.getUsers = factory.getAll(User);
+
+exports.addToUserWishlist = catchAsync(async (req, res, next) => {
+  const user = await User.findByIdAndUpdate(
+    req.user._id,
+    {
+      $push: { myWishlist: req.params.tourId },
+    },
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+  res.status(200).json({
+    status: "success",
+    data: user,
+  });
+});
+exports.removeFromUserWishlist = catchAsync(async (req, res, next) => {
+  const user = await User.findByIdAndUpdate(
+    req.user._id,
+    {
+      $pull: { myWishlist: req.params.tourId },
+    },
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+  res.status(200).json({
+    status: "success",
+    data: user,
+  });
+});
 exports.updateMe = catchAsync(async (req, res, next) => {
   const filterObj = (obj, ...allowedFields) => {
     const newObj = {};

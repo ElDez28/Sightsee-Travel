@@ -7,5 +7,4 @@ router
   .route("/")
   .post(authController.protect, orderController.createOrder)
   .get(orderController.getOrders);
-
 module.exports = router;
