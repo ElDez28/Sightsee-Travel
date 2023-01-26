@@ -1,9 +1,8 @@
 const mongoose = require("mongoose");
-const userSchema = new mongoose.Schema(
+const orderSchema = new mongoose.Schema(
   {
-    trip: [{ type: mongoose.Schema.ObjectId, ref: "Tour" }],
-
-    user: [{ type: mongoose.Schema.ObjectId, ref: "User" }],
+    trip: { type: mongoose.Schema.ObjectId, ref: "Tour" },
+    user: { type: mongoose.Schema.ObjectId, ref: "User" },
     startingDate: {
       type: Date,
       required: [true, "You have to pick starting date of your journey"],
@@ -29,6 +28,7 @@ const userSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
-const User = mongoose.model("User", userSchema);
 
-module.exports = User;
+const Order = mongoose.model("Order", orderSchema);
+
+module.exports = Order;

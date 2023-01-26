@@ -11,6 +11,7 @@ const compression = require("compression");
 ///////////////////////////////////////////////
 const tourRouter = require("./routes/tourRoutes");
 const userRouter = require("./routes/userRoutes");
+const orderRouter = require("./routes/orderRoutes");
 const AppError = require("./util/AppError");
 // app
 const app = express();
@@ -40,6 +41,7 @@ app.use(compression());
 // Routes
 app.use("/api/v1/tours", tourRouter);
 app.use("/api/v1/users", userRouter);
+app.use("/api/v1/orders", orderRouter);
 app.all("*", (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
