@@ -19,7 +19,7 @@ const orderSchema = new mongoose.Schema(
     status: {
       type: String,
       default: "pending",
-      enum: ["pending", "under consideration", "approved", "rejected"],
+      enum: ["pending", "considering", "aproved", "rejected", "canceled"],
     },
   },
   {
@@ -28,7 +28,12 @@ const orderSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
-
+orderSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: "trip",
+  });
+  next();
+});
 const Order = mongoose.model("Order", orderSchema);
 
 module.exports = Order;

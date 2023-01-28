@@ -7,4 +7,5 @@ router
   .route("/")
   .post(authController.protect, orderController.createOrder)
   .get(orderController.getOrders);
+router.route("/:id").patch(authController.protect, orderController.updateOrder);
 module.exports = router;
