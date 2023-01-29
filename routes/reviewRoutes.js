@@ -9,6 +9,7 @@ router
 router
   .route("/getUserReviews")
   .get(authController.protect, reviewController.getReviewsOfUser);
+router.route("/:id/tripReviews").get(reviewController.getTripReviews);
 router
   .route("/:id")
   .patch(authController.protect, reviewController.updateReview);

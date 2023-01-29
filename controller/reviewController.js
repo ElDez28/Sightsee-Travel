@@ -16,3 +16,11 @@ exports.getReviewsOfUser = catchAsync(async (req, res, next) => {
     data: userReviews,
   });
 });
+exports.getTripReviews = catchAsync(async (req, res, next) => {
+  const reviews = await Review.find({ trip: req.params.id }).populate("user");
+
+  res.status(200).json({
+    status: "success",
+    data: reviews,
+  });
+});

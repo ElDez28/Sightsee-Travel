@@ -39,7 +39,7 @@ reviewSchema.statics.calcAverageRatings = async function (tripId) {
   } else {
     await Tour.findByIdAndUpdate(tripId, {
       ratingsQuantity: 0,
-      ratingsAverage: 4.5,
+      ratingsAverage: 5,
     });
   }
 };
@@ -57,7 +57,7 @@ reviewSchema.post("save", function (next) {
   this.constructor.calcAverageRatings(this.trip);
 });
 
-reviewSchema.index({ tour: 1, user: 1 }, { unique: true });
+reviewSchema.index({ trip: 1, user: 1 }, { unique: true });
 const Review = mongoose.model("Review", reviewSchema);
 
 module.exports = Review;
