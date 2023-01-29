@@ -5,6 +5,9 @@ exports.createOne = (Model) => {
     if (req.file) {
       req.body.image = req.file.filename;
     }
+    if (req.user) {
+      req.body.user = req.user._id;
+    }
     const newDoc = await Model.create(req.body);
     res.status(200).json({
       status: "success",

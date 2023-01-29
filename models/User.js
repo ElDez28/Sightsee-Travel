@@ -58,7 +58,11 @@ userSchema.methods.correctPassword = async function (
 ) {
   return await bcrypt.compare(candidatePassword, userPassword);
 };
-
+userSchema.virtual("myReviews", {
+  ref: "Review",
+  foreignField: "user",
+  localField: "_id",
+});
 const User = mongoose.model("User", userSchema);
 
 module.exports = User;

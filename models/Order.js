@@ -21,6 +21,17 @@ const orderSchema = new mongoose.Schema(
       default: "pending",
       enum: ["pending", "considering", "aproved", "rejected", "canceled"],
     },
+    ratingsQuantity: {
+      type: Number,
+      default: 0,
+    },
+    ratingsAverage: {
+      type: Number,
+      default: 5,
+      min: [1, "Rating must be above 1.0"],
+      max: [5.1, "Rating must be below 5.1"],
+      set: (val) => Math.round(val * 10) / 10,
+    },
   },
   {
     toJSON: { virtuals: true },
@@ -34,6 +45,7 @@ orderSchema.pre(/^find/, function (next) {
   });
   next();
 });
+
 const Order = mongoose.model("Order", orderSchema);
 
 module.exports = Order;

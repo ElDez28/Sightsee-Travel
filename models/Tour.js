@@ -85,6 +85,12 @@ const tourSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+tourSchema.virtual("reviews", {
+  ref: "Review",
+  foreignField: "trip",
+  localField: "_id",
+});
 const Tour = mongoose.model("Tour", tourSchema);
 
 module.exports = Tour;

@@ -15,6 +15,7 @@ router
     userController.uploadUserPhoto,
     userController.updateMe
   );
+router.route("/:id/getMe").get(userController.getMe);
 router
   .route("/:tourId/add")
   .patch(authController.protect, userController.addToUserWishlist);

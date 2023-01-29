@@ -6,7 +6,7 @@ const { v1: uuid } = require("uuid");
 const AppError = require("../util/AppError");
 exports.createUser = factory.createOne(User);
 exports.getUsers = factory.getAll(User);
-
+exports.getOneUser = factory.getOne(User, { path: "myReviews" });
 exports.addToUserWishlist = catchAsync(async (req, res, next) => {
   const user = await User.findByIdAndUpdate(
     req.user._id,
@@ -75,6 +75,16 @@ exports.updateMe = catchAsync(async (req, res, next) => {
     data: {
       user: updatedUser,
     },
+  });
+});
+
+exports.getMe = catchAsync(async (req, res, next) => {
+  const user = await User.findById(req.params.id).populate({
+    path: "myReviews",
+  });
+  res.status(200).json({
+    status: "success",
+    data: user,
   });
 });
 const multerStorage = multer.diskStorage({
