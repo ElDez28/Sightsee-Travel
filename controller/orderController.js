@@ -2,6 +2,7 @@ const Order = require("../models/Order");
 const factory = require("./handlerFactory");
 const catchAsync = require("../util/catchAsync");
 const AppError = require("../util/AppError");
+exports.deleteOrder = factory.deleteOne(Order);
 exports.createOrder = catchAsync(async (req, res, next) => {
   req.body.user = req.user._id;
   const newDoc = await Order.create(req.body);
@@ -13,7 +14,7 @@ exports.createOrder = catchAsync(async (req, res, next) => {
 exports.updateOrder = catchAsync(async (req, res, next) => {
   const order = await Order.findById(req.params.id);
 
-  if (order.user.toString() !== req.user.id) {
+  if (order.user.toString() !== req.user.id && req.user.role !== "admin") {
     return next(new AppError("You can not update other peoples reservations"));
   }
   const newDoc = await Order.findByIdAndUpdate(req.params.id, req.body, {
@@ -27,4 +28,4 @@ exports.updateOrder = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.getOrders = factory.getAll(Order);
+exports.getOrders = factory.getAll(Order, "user");

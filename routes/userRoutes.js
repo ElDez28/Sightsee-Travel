@@ -23,10 +23,11 @@ router
   .route("/:tourId/remove")
   .patch(authController.protect, userController.removeFromUserWishlist);
 
-// router.use(authController.protect, authController.restrict);
 router
   .route("/")
   .get(userController.getUsers)
   .post(userController.uploadUserPhoto, userController.createUser);
+router.use(authController.protect, authController.restrictTo("admin"));
+router.route("/:id").patch(userController.updateUser);
 
 module.exports = router;

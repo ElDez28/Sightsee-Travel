@@ -8,7 +8,7 @@ router
   .get(tourController.getTours)
   .post(
     authController.protect,
-    authController.restrict,
+    authController.restrictTo("admin"),
     tourController.createTour
   );
 router.route("/:id").get(tourController.getOne);

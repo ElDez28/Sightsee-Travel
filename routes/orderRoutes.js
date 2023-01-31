@@ -7,5 +7,16 @@ router
   .route("/")
   .post(authController.protect, orderController.createOrder)
   .get(orderController.getOrders);
-router.route("/:id").patch(authController.protect, orderController.updateOrder);
+router
+  .route("/:id")
+  .patch(
+    authController.protect,
+    authController.restrictTo("admin"),
+    orderController.updateOrder
+  )
+  .delete(
+    authController.protect,
+    authController.restrictTo("admin"),
+    orderController.deleteOrder
+  );
 module.exports = router;

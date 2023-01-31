@@ -7,6 +7,7 @@ const AppError = require("../util/AppError");
 exports.createUser = factory.createOne(User);
 exports.getUsers = factory.getAll(User);
 exports.getOneUser = factory.getOne(User, { path: "myReviews" });
+exports.updateUser = factory.updateOne(User);
 exports.addToUserWishlist = catchAsync(async (req, res, next) => {
   const user = await User.findByIdAndUpdate(
     req.user._id,

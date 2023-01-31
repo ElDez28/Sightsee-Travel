@@ -15,6 +15,14 @@ exports.createOne = (Model) => {
     });
   });
 };
+exports.deleteOne = (Model) => {
+  return catchAsync(async (req, res, next) => {
+    await Model.findByIdAndRemove(req.params.id);
+    res.status(201).json({
+      status: "success",
+    });
+  });
+};
 exports.getAll = (Model, popOptions) => {
   return catchAsync(async (req, res, next) => {
     let query = Model.find();

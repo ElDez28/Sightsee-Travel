@@ -41,6 +41,10 @@ const userSchema = new mongoose.Schema(
     phone: {
       type: String,
     },
+    isActive: {
+      type: Boolean,
+      default: true,
+    },
     myTrips: [{ type: mongoose.Schema.ObjectId, ref: "Tour" }],
     myOrders: [{ type: mongoose.Schema.ObjectId, ref: "Order" }],
     myWishlist: [{ type: mongoose.Schema.ObjectId, ref: "Tour" }],
