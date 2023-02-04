@@ -1,4 +1,14 @@
 const mongoose = require("mongoose");
+const locationsSchema = new mongoose.Schema({
+  type: {
+    type: String,
+    default: "Point",
+    enum: ["Point"],
+  },
+  coordinates: [Number],
+  name: String,
+});
+
 const tourSchema = new mongoose.Schema(
   {
     title: {
@@ -23,7 +33,7 @@ const tourSchema = new mongoose.Schema(
     },
     icon: {
       type: Number,
-      enum: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      enum: [0, 1, 2, 3, 4, 5, 6, 7, 8],
     },
 
     theme: {
@@ -55,7 +65,7 @@ const tourSchema = new mongoose.Schema(
     },
     imageCover: {
       type: String,
-      required: [true, "A tour must have a cover image"],
+      // required: [true, "A tour must have a cover image"],
     },
     images: [String],
 
@@ -67,17 +77,7 @@ const tourSchema = new mongoose.Schema(
       },
       coordinates: [Number],
     },
-    locations: [
-      {
-        type: {
-          type: String,
-          default: "Point",
-          enum: ["Point"],
-        },
-        coordinates: [Number],
-        name: String,
-      },
-    ],
+    locations: [locationsSchema],
   },
   {
     toJSON: { virtuals: true },

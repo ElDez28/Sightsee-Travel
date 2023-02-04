@@ -56,6 +56,14 @@ exports.login = catchAsync(async (req, res, next) => {
   if (!user || (await user.correctPassword(password, user.password))) {
     return next(new AppError("Incorrect email or password", 401));
   }
+  if (user.isActive === false) {
+    return next(
+      new AppError(
+        "Your account has been deactivated. Please contact admin!",
+        401
+      )
+    );
+  }
   createSendToken(user, 200, res);
 });
 exports.logout = catchAsync(async (req, res, next) => {

@@ -9,11 +9,7 @@ router
   .get(orderController.getOrders);
 router
   .route("/:id")
-  .patch(
-    authController.protect,
-    authController.restrictTo("admin"),
-    orderController.updateOrder
-  )
+  .patch(authController.protect, orderController.updateOrder)
   .delete(
     authController.protect,
     authController.restrictTo("admin"),

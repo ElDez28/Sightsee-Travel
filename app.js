@@ -52,7 +52,7 @@ app.all("*", (req, res, next) => {
 //Global error middleware
 app.use((err, req, res, next) => {
   if (req.file) {
-    fs.unlink(req.file.path, () => {
+    fs.unlink(req.file.filepath, () => {
       console.log(err);
     });
   }

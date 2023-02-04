@@ -15,7 +15,9 @@ exports.updateOrder = catchAsync(async (req, res, next) => {
   const order = await Order.findById(req.params.id);
 
   if (order.user.toString() !== req.user.id && req.user.role !== "admin") {
-    return next(new AppError("You can not update other peoples reservations"));
+    return next(
+      new AppError("You can not update other peoples reservations", 401)
+    );
   }
   const newDoc = await Order.findByIdAndUpdate(req.params.id, req.body, {
     new: true,

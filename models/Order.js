@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+
 const orderSchema = new mongoose.Schema(
   {
     trip: { type: mongoose.Schema.ObjectId, ref: "Tour" },
