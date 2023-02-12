@@ -1,7 +1,13 @@
+const dotenv = require("dotenv");
+dotenv.config({ path: `./config.env` });
+
 const Order = require("../models/Order");
+const stripe = require("stripe")(process.env.STRIPE_KEY);
 const factory = require("./handlerFactory");
 const catchAsync = require("../util/catchAsync");
 const AppError = require("../util/AppError");
+const Tour = require("../models/Tour");
+
 exports.deleteOrder = factory.deleteOne(Order);
 exports.createOrder = catchAsync(async (req, res, next) => {
   req.body.user = req.user._id;
